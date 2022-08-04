@@ -1,13 +1,34 @@
-import React from 'react';
-import AlgoRunner from './AlgoRunner';
+import { useState } from 'react';
+import { palindrome } from './algos/palindrome';
+import { reverseInPlace } from './algos/reverseInPlace';
+import { reverseWords } from './algos/reverseWords';
 import logo from './logo.svg';
+import SearchBar from './SearchBar';
 import './styling.css';
 
+let searchable = [
+  { name: 'Palindrome', func: palindrome },
+  { name: 'Reverse In Place', func: reverseInPlace },
+  { name: 'Reverse Words', func: reverseWords },
+  { name: 'Reverse In Place', func: reverseInPlace },
+];
+
+export type Func = string | number | [] | boolean;
+
 function App() {
+  const [filtered, setFiltered] = useState(searchable);
+  const allProblems = filtered.map((item, i: number) => {
+    return (
+      <ReusableFunctionWrapper key={i} name={item.name} func={item.func} />
+    );
+  });
   return (
     <div className="App">
       <Ban />
-      <Main></Main>
+      <div className="main-container">
+        <SearchBar setFiltered={setFiltered} searchable={searchable} />
+        {allProblems}
+      </div>
     </div>
   );
 }
@@ -24,12 +45,23 @@ function Ban() {
   );
 }
 
-function Main() {
+export default App;
+
+interface ReusableFunctionWrapperProp {
+  name: string;
+  func: () => Func;
+}
+
+function ReusableFunctionWrapper({ name, func }: ReusableFunctionWrapperProp) {
+  const [answer, setAnswer] = useState<Func>('');
   return (
-    <div className="main-container">
-      <h2>Algos Heres</h2>
-      <AlgoRunner></AlgoRunner>
-    </div>
+    <>
+      <h2>{name}:</h2>
+      <button onClick={() => setAnswer(func())}> Test Code</button>
+      <h5>
+        result:
+        {JSON.stringify(answer)}
+      </h5>
+    </>
   );
 }
-export default App;

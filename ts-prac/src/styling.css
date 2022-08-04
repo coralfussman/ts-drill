@@ -46,12 +46,30 @@
 
 .main-container {
   width: 90vw;
+  height: 65vh;
+  padding: 1ch;
+  overflow: scroll;
   display: flex;
+
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   color: rgb(32, 62, 57);
   box-shadow: 5px 5px 15px 5px rgba(184, 196, 184, 0.219);
 
   border-radius: 8px 8px 8px 8px;
+}
+
+.main-prob {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: 1vh;
+  color: rgb(32, 62, 57);
+}
+.main-prob h2 {
+  margin: 1vh;
+  color: rgb(51, 117, 106);
 }
